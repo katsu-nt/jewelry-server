@@ -4,16 +4,8 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    size: {
-        type: Number,
-        required: true,
-    },
     description: {
         type: String,
-    },
-    quantity: {
-        type: Number,
-        required: true
     },
     category: { type: String, required: true }
 })
