@@ -16,15 +16,6 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
     },
-    address: {
-        type: String,
-    },
-    city: {
-        type: String,
-    },
-    country: {
-        type: String
-    }
 })
 const User = mongoose.model("User", userSchema)
 export default User;
