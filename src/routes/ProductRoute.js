@@ -15,4 +15,5 @@ const upload = multer({
 
 // /api/admin/product
 router.post("/insert", upload.single("imageFile"),ProductController.insertProduct)
+router.post("/filter", ProductController.filterProducts);
 export default router
