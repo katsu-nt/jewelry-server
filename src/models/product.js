@@ -30,7 +30,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    listSize:[sizeItem]
+    listSize:[sizeItem],
+    imageUrl: {
+        type: String,
+    },
 })
 const Product = mongoose.model("Product", productSchema)
 export default Product;

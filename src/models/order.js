@@ -10,9 +10,9 @@ const orderSchema = new mongoose.Schema({
   },
   cartItems: [
     {
-      menuItemId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
       quantity: { type: Number, required: true },
-      name: { type: String, required: true },
+      size: { type: Number, required: true }
     },
   ],
   totalAmount: Number,
