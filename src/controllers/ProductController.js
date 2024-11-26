@@ -21,6 +21,72 @@ const insertProduct = async (req, res) => {
         res.status(500).json({ message: "Error inserting product" })
     }
 }
+
+const updateProduct = async (req, res) => {
+    try {
+        // Lấy ID sản phẩm từ URL
+        const { id } = req.params;
+
+        // Tìm sản phẩm trong cơ sở dữ liệu
+        const product = await Product.findById(id);
+
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        // Cập nhật thông tin từ req.body
+        Object.keys(req.body).forEach((key) => {
+            product[key] = req.body[key];
+        });
+
+        // Xử lý file ảnh mới (nếu có)
+        if (req.file) {
+            const imageUrl = await uploadImage(req.file); // Hàm xử lý upload ảnh
+            product.imageUrl = imageUrl;
+        }
+
+        // Lưu sản phẩm đã cập nhật
+        await product.save();
+
+        res.status(200).json(product.toObject());
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error updating product" });
+    }
+};
+
+const getAllProducts = async (req, res) => {
+    try {
+        const products = await Product.find(); // Lấy toàn bộ sản phẩm từ cơ sở dữ liệu
+        res.status(200).json(products); // Trả về danh sách sản phẩm dưới dạng JSON
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error fetching products" });
+    }
+};
+
+const deleteProduct = async (req, res) => {
+    try {
+        // Lấy ID sản phẩm từ URL
+        const { id } = req.params;
+
+        // Tìm và xóa sản phẩm trong cơ sở dữ liệu
+        const product = await Product.findByIdAndDelete(id);
+
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        res.status(200).json({ message: "Product deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error deleting product" });
+    }
+};
+
 export default {
-    insertProduct
+    insertProduct,
+    updateProduct,
+    getAllProducts,
+    deleteProduct,
 }
