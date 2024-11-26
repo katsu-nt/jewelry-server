@@ -1,7 +1,7 @@
 import Product from "../models/product.js";
 import cloudinary from "cloudinary"
 
-
+// Upload ảnh
 const uploadImage = async (file) => {
     const image = file;
     const base64Image = Buffer.from(image.buffer).toString("base64")
@@ -9,6 +9,8 @@ const uploadImage = async (file) => {
     const uploadResponse = await cloudinary.v2.uploader.upload(dataURI)
     return uploadResponse.url
 }
+
+// Thêm mới sản phẩm
 const insertProduct = async (req, res) => {
     try {
         const imageUrl = await uploadImage(req.file)
@@ -22,6 +24,7 @@ const insertProduct = async (req, res) => {
     }
 }
 
+// Cập nhật sản phẩm
 const updateProduct = async (req, res) => {
     try {
         // Lấy ID sản phẩm từ URL
@@ -55,6 +58,7 @@ const updateProduct = async (req, res) => {
     }
 };
 
+// Lấy tất cả các sản phẩm
 const getAllProducts = async (req, res) => {
     try {
         const products = await Product.find(); // Lấy toàn bộ sản phẩm từ cơ sở dữ liệu
@@ -65,6 +69,7 @@ const getAllProducts = async (req, res) => {
     }
 };
 
+// Xóa 1 sản phẩm
 const deleteProduct = async (req, res) => {
     try {
         // Lấy ID sản phẩm từ URL
@@ -83,6 +88,8 @@ const deleteProduct = async (req, res) => {
         res.status(500).json({ message: "Error deleting product" });
     }
 };
+
+// Tìm kiếm sản phẩm dựa trên tên
 const searchProductByName = async (req, res) => {
     try {
         const { name } = req.body;
