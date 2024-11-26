@@ -11,10 +11,6 @@ const sizeItem = new mongoose.Schema({
     }
 })
 const productSchema = new mongoose.Schema({
-    thumbnail: {
-        type: String,
-        required: true,
-    },
     nameProduct: {
         type: String,
         required: true,
