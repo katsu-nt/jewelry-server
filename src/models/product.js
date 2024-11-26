@@ -32,5 +32,5 @@ const productSchema = new mongoose.Schema({
     },
     listSize:[sizeItem]
 })
-const User = mongoose.model("Product", productSchema)
-export default User;
+const Product = mongoose.model("Product", productSchema)
+export default Product;
