@@ -15,4 +15,13 @@ const upload = multer({
 
 // /api/admin/product
 router.post("/insert", upload.single("imageFile"),ProductController.insertProduct)
+// Route cập nhật sản phẩm
+router.put("/update/:id", upload.single("imageFile"), ProductController.updateProduct);
+// Route lấy toàn bộ sản phẩm
+router.get("/all", ProductController.getAllProducts);
+// Route xóa sản phẩm
+router.delete("/delete/:id", ProductController.deleteProduct);
+// Route tìm kiếm sản phẩm bằng tên
+router.post("/search", ProductController.searchProductByName);
+
 export default router
