@@ -19,6 +19,7 @@ const orderSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["placed", "paid", "inProgress", "outForDelivery", "delivered"],
+    default: "placed"
   },
   createdAt: { type: Date, default: Date.now },
 });
