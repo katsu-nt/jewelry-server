@@ -8,14 +8,7 @@ const orderSchema = new mongoose.Schema({
     address: { type: String, required: true },
     city: { type: String, required: true },
   },
-  cartItems: [
-    {
-      productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-      quantity: { type: Number, required: true },
-      size: { type: Number, required: true }
-    },
-  ],
-  totalAmount: Number,
+  cart:{ type: mongoose.Schema.Types.ObjectId, ref: "Cart" },
   status: {
     type: String,
     enum: ["placed", "paid", "inProgress", "outForDelivery", "delivered"],
