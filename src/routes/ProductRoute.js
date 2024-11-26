@@ -21,4 +21,7 @@ router.put("/update/:id", upload.single("imageFile"), ProductController.updatePr
 router.get("/all", ProductController.getAllProducts);
 // Route xóa sản phẩm
 router.delete("/delete/:id", ProductController.deleteProduct);
+// Route tìm kiếm sản phẩm bằng tên
+router.post("/search", ProductController.searchProductByName);
+
 export default router

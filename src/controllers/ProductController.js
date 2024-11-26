@@ -83,10 +83,31 @@ const deleteProduct = async (req, res) => {
         res.status(500).json({ message: "Error deleting product" });
     }
 };
+const searchProductByName = async (req, res) => {
+    try {
+        const { name } = req.body;
+
+        if (!name) {
+            const products = await Product.find();
+            return res.status(200).json(products);
+        }
+
+        // Tìm kiếm sản phẩm chứa giá trị `name`
+        const products = await Product.find({
+            nameProduct: { $regex: name, $options: "i" }, // Tìm kiếm không phân biệt hoa thường
+        });
+
+        res.status(200).json(products); // Trả về danh sách sản phẩm
+    } catch (error) {
+        console.error("Error searching products:", error);
+        res.status(500).json({ message: "Error searching products" });
+    }
+};
 
 export default {
     insertProduct,
     updateProduct,
     getAllProducts,
     deleteProduct,
+    searchProductByName
 }
