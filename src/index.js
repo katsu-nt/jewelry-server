@@ -4,6 +4,7 @@ import "dotenv/config"
 import mongoose from "mongoose"
 import bodyParser from "body-parser"
 import myUserRoute from "./routes/MyUserRoute.js"
+import productRoute from "./routes/ProductRoute.js"
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING).then(() => {
     console.log("Connected to db")
@@ -22,6 +23,7 @@ app.get("/health",  (req, res) => {
 })
 
 app.use("/api/my/user", myUserRoute)
+app.use("/api/admin/product", productRoute)
 
 app.listen(7000, () => {
 
