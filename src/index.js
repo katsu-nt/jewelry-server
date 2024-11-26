@@ -5,7 +5,7 @@ import mongoose from "mongoose"
 import bodyParser from "body-parser"
 import myUserRoute from "./routes/MyUserRoute.js"
 import productRoute from "./routes/ProductRoute.js"
-import cartRoute from "./routes/CartRoute.js"
+import cartRoute from "./routes/MyCartRoute.js"
 import { v2 as cloudinary } from "cloudinary"
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING).then(() => {
@@ -30,7 +30,7 @@ app.get("/health",  (req, res) => {
 
 app.use("/api/my/user", myUserRoute)
 app.use("/api/admin/product", productRoute)
-app.use("/api/user/cart", cartRoute)
+app.use("/api/my/cart", cartRoute)
 
 app.listen(7000, () => {
 
