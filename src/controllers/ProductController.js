@@ -21,6 +21,32 @@ const insertProduct = async (req, res) => {
         res.status(500).json({ message: "Error inserting product" })
     }
 }
+
+const filterProducts = async (req, res) => {
+    console.log(req.body)
+    try {
+      const { typeProduct, gender, minPrice, maxPrice, nameProduct } = req.body;
+  
+      const filters = {};
+  
+      if (typeProduct) filters.typeProduct = typeProduct;
+      if (gender) filters.gender = gender;
+      if (minPrice) filters.price = { $gte: parseFloat(minPrice) };
+      if (maxPrice) filters.price = { ...filters.price, $lte: parseFloat(maxPrice) };
+      if (nameProduct) filters.nameProduct = { $regex: nameProduct, $options: "i" };
+  
+      console.log(filters)
+      const products = await Product.find(filters);
+  
+      res.status(200).json(products);
+    } catch (error) {
+      console.error("Error filtering products:", error.message);
+      res.status(500).json({ message: "Error filtering products" });
+    }
+  };
+  
+
 export default {
-    insertProduct
+    insertProduct,
+    filterProducts
 }
