@@ -111,10 +111,33 @@ const searchProductByName = async (req, res) => {
     }
 };
 
+
+const filterProducts = async (req, res) => {
+    try {
+      const { typeProduct, gender, minPrice, maxPrice, nameProduct } = req.body;
+  
+      const filters = {};
+  
+      if (typeProduct) filters.typeProduct = typeProduct;
+      if (gender) filters.gender = gender;
+      if (minPrice) filters.price = { $gte: parseFloat(minPrice) };
+      if (maxPrice) filters.price = { ...filters.price, $lte: parseFloat(maxPrice) };
+      if (nameProduct) filters.nameProduct = { $regex: nameProduct, $options: "i" };
+  
+      const products = await Product.find(filters);
+  
+      res.status(200).json(products);
+    } catch (error) {
+      res.status(500).json({ message: "Error filtering products" });
+    }
+  };
+  
+
 export default {
     insertProduct,
     updateProduct,
     getAllProducts,
     deleteProduct,
-    searchProductByName
+    searchProductByName,
+    filterProducts
 }
