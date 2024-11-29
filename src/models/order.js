@@ -11,8 +11,8 @@ const orderSchema = new mongoose.Schema({
   cart:{ type: mongoose.Schema.Types.ObjectId, ref: "Cart" },
   status: {
     type: String,
-    enum: ["placed", "paid", "inProgress", "outForDelivery", "delivered"],
-    default: "placed"
+    enum: ["Đã đặt", "Đang vận chuyển", "Giao hàng thành công"],
+    default: "Đã đặt"
   },
   createdAt: { type: Date, default: Date.now },
 });
