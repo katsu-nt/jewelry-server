@@ -54,6 +54,30 @@ const getAllOrders = async (req, res) => {
     }
 };
 
+const updateStatus = async (req, res) => {
+    try {
+        // Logic để cập nhật trạng thái đơn hàng trong cơ sở dữ liệu (nếu có)
+        const { _id, status } = req.body;
+
+        
+        const order = await Order.findById(_id);
+        
+        if (!order) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+        
+        order.status = status;
+        
+        // Lưu sản phẩm đã cập nhật
+        await order.save();
+        // Trả về phản hồi
+        res.status(200).json({ message: 'Trạng thái đơn hàng đã được cập nhật!'});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Đã có lỗi xảy ra khi cập nhật trạng thái đơn hàng', error });
+    }
+};
+
 export default {
-    getAllOrders,
+    getAllOrders, updateStatus
 };
