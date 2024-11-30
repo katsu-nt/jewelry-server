@@ -1,0 +1,3 @@
+- Git clone https://github.com/katsu-nt/jewelry-server
+- Npm i
+- Npm run dev
