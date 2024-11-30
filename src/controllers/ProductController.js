@@ -111,7 +111,21 @@ const searchProductByName = async (req, res) => {
     }
 };
 
+// Tìm kiếm sản phẩm dựa trên id
+const findProductByID = async (req, res) => {
+    try {
+      const { id } = req.body; // Nhận `id` từ body
+      const product = await Product.findById(id); // Tìm sản phẩm theo `id`
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.status(200).json(product);
+    } catch (error) {
+      res.status(500).json({ message: "Error finding product" });
+    }
+  };
 
+//Lọc product theo điều kiện được truyền vào
 const filterProducts = async (req, res) => {
     try {
       const { typeProduct, gender, minPrice, maxPrice, nameProduct } = req.body;
@@ -139,5 +153,6 @@ export default {
     getAllProducts,
     deleteProduct,
     searchProductByName,
-    filterProducts
+    filterProducts,
+    findProductByID
 }
